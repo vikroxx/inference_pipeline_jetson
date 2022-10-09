@@ -10,6 +10,7 @@ import cv2
 import argparse
 
 
+
 def unique_objects_from_detections(img_dir, label_dir, final_dir, left_image_index):
     # pickle_file = '09_08_1_detections.p'
 
@@ -141,7 +142,7 @@ def test2():
     # label_dir = '09_08_2_detections/labels/'
 
     # label_dir = 'labels/'
-    image_dir = '/home/vikrant/Desktop/09_10_22/undistorted/'
+    image_dir = '/home/vikrant/Desktop/09_10_22/undistorted_test/'
 
     label_dir = '/home/vikrant/Desktop/09_10_22/yolo_output/exp/labels/'
     # image_dir = '/home/vikrant/Desktop/python_pipelines/multiprocess_resizing/09_08_3_undistorted/'
@@ -208,11 +209,12 @@ def test2():
 
         img1 = cv2.imread(os.path.join(image_dir, img_tuple[0]))
         img2 = cv2.imread(os.path.join(image_dir, img_tuple[1]))
-
         if isinstance(previous_index, int):
             if int(previous_index) == int(current_index) - 1:
                 retained_left_labels, retained_right_labels = retained_labels(previous_labels[0], previous_labels[1],
                                                                               img_height, img_width)
+                # print('previous labels left : {}'.format(json.dumps(previous_labels[0], indent=2)))
+                # print('previous labels right : {}'.format(previous_labels[1]))
 
                 # plot previous labels 0
                 # plot retained labels
@@ -275,8 +277,10 @@ def test2():
                         y1 = int(round(yc - h / 2))
                         x2 = int(round(xc + w / 2))
                         y2 = int(round(yc + h / 2))
+                        # if x1 > img_width * 0.7:
+                            # print(([x1,y1,x2,y2, xc, yc, w, h]))
                         cv2.rectangle(img2, (x1, y1), (x2, y2), (255, 0, 0), 5)
-                
+                # print('retained right labels....')
                 if retained_right_labels is not None:
                     label_3 = [x.strip() for x in retained_right_labels]
                     for ele in label_3:
@@ -290,6 +294,8 @@ def test2():
                         y1 = int(round(yc - h / 2))
                         x2 = int(round(xc + w / 2))
                         y2 = int(round(yc + h / 2))
+                        # if x1 > img_width * 0.7:
+                            # print(([x1,y1,x2,y2, w, h]))
                         cv2.rectangle(img2, (x1, y1), (x2, y2), (0, 255, 0), 5)
 
                 # if unique_objects[1] is not None:

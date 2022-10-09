@@ -81,10 +81,14 @@ def retained_labels(tmp_1, tmp_2, img_height, img_width):
             xc = int(float(ele.split(' ')[1]) * img_width)
             yc = int(float(ele.split(' ')[2]) * img_height) + vertical_drift
             h = int(float(ele.split(' ')[4]) * img_height)
-
+            # if xc == 2683:
+                # print('Found it!')
+                # print(xc, yc, int(float(ele.split(' ')[3]) * img_width), h)
+                # print(yc - h / 2 , img_height - (yc + h / 2) , img_width - common_area_pixel / 2)
+                # print((yc - h / 2) > box_distance_from_top_bottom_allowance, (img_height - (yc + h / 2)) > box_distance_from_top_bottom_allowance , xc < img_width - common_area_pixel / 2)
             # Excluded top and bottom margin objects in images
             if (yc - h / 2) > box_distance_from_top_bottom_allowance and (img_height - (
-                    yc + h / 2)) > box_distance_from_top_bottom_allowance and xc < img_width - common_area_pixel / 2:
+                    yc + h / 2)) > box_distance_from_top_bottom_allowance and xc > (common_area_pixel / 2):
                 # final_tmp_2.append(ele)
                 final_tmp_2.append(' '.join(
                     ['0', ele.split(' ')[1], str(float(yc / img_height)), ele.split(' ')[3], ele.split(' ')[4]]))
